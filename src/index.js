@@ -1,12 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './tailwind.output.css';
+import './index.css';
+
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import Nav from './compontents/Nav'
+import Main from './Main';
+import Contact from './Contact';
+import Error from './Error';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <BrowserRouter>
+          <Nav />
+          <div className="lg:container lg:mx-auto">
+              <Switch>
+                  <Route path="/" component={Main} exact/>
+                  <Route path="/contact" component={Contact}/>
+                  <Route component={Error}/>
+              </Switch>
+          </div>
+      </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
