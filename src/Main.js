@@ -6,7 +6,12 @@ import TravelStop from "./compontents/TravelStop";
 class Main extends Component {
     constructor() {
         super();
-        this.state = {total: 0, list: []};
+
+        let list = localStorage.getItem('list');
+        list = list ? JSON.parse(list).filter(stop => stop) : [];
+
+        const total = this.countTotal(list);
+        this.state = {total, list};
     }
 
     addStop() {
@@ -21,25 +26,35 @@ class Main extends Component {
         });
 
         this.setState({list});
-        console.log(list);
     }
 
     editStop(i, stop) {
-        let total = 0;
         let list = this.state.list;
-        console.log("editStop", i, stop);
         list[i] = stop;
 
-
-        list.forEach((stop) => total += stop.totalPrice);
-        console.log("total", total);
+        const total = this.countTotal(list);
         this.setState({list, total});
+        localStorage.setItem('list', JSON.stringify(list));
     }
 
     removeStop(i) {
         let list = this.state.list;
+
+        console.log(i, this.state.list);
+
         delete list[i];
-        this.setState({list});
+
+        const total = this.countTotal(list);
+
+        this.setState({total, list});
+
+        localStorage.setItem('list', JSON.stringify(list));
+    }
+
+    countTotal(list) {
+        let total = 0;
+        list.forEach((stop) => stop ? total += stop.totalPrice : null);
+        return total;
     }
 
     render() {
