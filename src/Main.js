@@ -12,6 +12,8 @@ class Main extends Component {
 
         const total = this.countTotal(list);
         this.state = {total, list};
+
+        document.title = "TravelApp | Home"
     }
 
     addStop() {

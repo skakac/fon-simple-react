@@ -7,6 +7,8 @@ class Contact extends Component {
         super(props);
         this.state = {email: "", name: "", question: ""};
         this.resetState();
+
+        document.title = "TravelApp | Contact"
     }
 
     resetState() {
